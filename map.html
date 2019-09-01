@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/>
+	<title>Helsinki Bikes</title>
+	
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   
+ <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+ 
+	
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+   
+ <SCRIPT language="JavaScript" type="text/JavaScript" src="data.js"></SCRIPT>
+ <SCRIPT language="JavaScript" type="text/JavaScript" src="map.js"></SCRIPT>
+ <SCRIPT language="JavaScript" type="text/JavaScript" src="table.js"></SCRIPT>
+ <SCRIPT language="JavaScript" type="text/JavaScript" src="scripts.js"></SCRIPT>
+ <SCRIPT language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
+   
+</head>
+
+
+<BODY onload = 'initMap()'> 
+
+
+	<div class = "title">
+		<h1>Helsinki City Bikes</h1>
+	</div>
+	<div><p>As an alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/stations which I used to use to find a share bike<br>
+	I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...<br>
+	Zoom to a section to reduce the number of stations in the right hand table
+	
+	</p></div>
+
+	
+	<!--button onclick = 'refreshTable()'>Refresh Table</button-->
+	<button onclick = 'zoomRandom()'>Zoom to random Location</button>
+	<!--button onclick = 'addLocationMarker()'>Add Location Marker</button-->	
+	<!--button onclick = 'findClosestStation()'>Find Closest Station</button-->
+	<button onclick = 'fetchLeafletRoutingMachineMapbox()'>fetchRouteMapbox</button>
+	<!--button onclick = 'clearData()'>Clear Data</button-->
+	<button onclick = 'printDebugData()'>Console Data</button>
+	<div class = "closestStation" id="closestStation"></div>
+	<br /><br />
+	
+	
+	
+	<div style="width: 100%; overflow: hidden;">
+		<div id="mymap" style="width: 600px; height: 400px; float: left;"></div>
+		<div id="stationText" style="margin-left: 620px;"></div>
+	</div>
+		
+	
+	<div class = "wrapper">
+		<div id = 'textWrap'></div>
+	</div>
+	
+	<SCRIPT type="text/JavaScript">
+	</script>
+	
+		
+</body>
