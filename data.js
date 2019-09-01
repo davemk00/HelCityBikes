@@ -7,7 +7,7 @@ function fetchData()	{
 	//API details: http://api.citybik.es/v2/
 	$.ajax({
 		dataType: "json",
-		url: 'http://api.citybik.es/v2/networks/citybikes-helsinki?fields=stations',
+		url: 'https://api.citybik.es/v2/networks/citybikes-helsinki?fields=stations',
 		success: function(data){
 			$.each(data,function(){
 				stationData = this.stations;
