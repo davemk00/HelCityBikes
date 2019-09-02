@@ -29,25 +29,21 @@
 <BODY onload = 'initMap()'> 
 
 
-	<div class = "title">
-		<h1>Helsinki City Bikes</h1>
+	<h1>Helsinki City Bikes</h1>
 	</div>
-	<div><p>As an alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/stations which I used to use to find a share bike<br>
-	I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...<br>
-	Zoom to a section to reduce the number of stations in the right hand table
-	
+	<div><p>An alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/stations<br>	
 	</p></div>
 
 	
 	<!--button onclick = 'refreshTable()'>Refresh Table</button-->
-	<button onclick = 'zoomRandom()'>Zoom to random Location</button>
+	<button onclick = 'zoomToRandom()'>Zoom to random Location</button>
 	<!--button onclick = 'addLocationMarker()'>Add Location Marker</button-->	
 	<!--button onclick = 'findClosestStation()'>Find Closest Station</button-->
 	<button onclick = 'fetchLeafletRoutingMachineMapbox()'>fetchRouteMapbox</button>
 	<!--button onclick = 'clearData()'>Clear Data</button-->
 	<button onclick = 'printDebugData()'>Console Data</button>
 	<div class = "closestStation" id="closestStation"></div>
-	<br /><br />
+	<br><br>
 	
 	
 	
@@ -63,6 +59,11 @@
 	
 	<SCRIPT type="text/JavaScript">
 	</script>
+
+
+	<p> I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...<br>
+	Zoom to a section to reduce the number of stations in the right hand table
+	</p>
 	
 		
 </body>
