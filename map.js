@@ -13,35 +13,28 @@ function initMap(){
 	
 	// Set up action listeners - all here for reference 
 	mymap.on('moveend',		function (e) { refreshTable(); });
-	//mymap.on('dragend',		function (e) { refreshTable(); });
-	//mymap.on('viewreset', 	function (e) { refreshTable(); });
-//	mymap.on('click', 		function (e) { addCurrLocationMarker(e.latlng); });
 
 
 	mymap.on("click", function (event) {
-		if (currentMarker) {
-			currentMarker._icon.style.transition = "transform 0.3s ease-out";
-			currentMarker._shadow.style.transition = "transform 0.3s ease-out";
-			
-			currentMarker.setLatLng(event.latlng);
-			findClosestStation(event.latlng);
-			
-			setTimeout(function () {
-				currentMarker._icon.style.transition = null;
-				currentMarker._shadow.style.transition = null;
-			}, 300);
-			return;
+				
+		findClosestStation(event.latlng);
+		
+		if (routeControl) {
+			routeControl.remove();
 		}
 		
-		currentMarker = L.marker(event.latlng, {
-			draggable: true
-		})
-		.addTo(mymap)
-		.on("click", function () {event.originalEvent.stopPropagation();})
-		.on("moveend", function () {findClosestStation(event.latlng)})
-		.on("dragend", function () {findClosestStation(event.latlng)});
+		routeControl = L.Routing.control({
+			profile:"mapbox/walking",
+			router: L.Routing.mapbox('pk.eyJ1IjoiZGsxZTE4IiwiYSI6ImNqejZseHN3djBmNnMzbGw4eGw1bWtxYzIifQ.PQzt_AuRZ79O2JT-MCbmvw', { profile: 'mapbox/walking' }),
+			waypoints: [
+				L.latLng(event.latlng),
+				L.latLng(nearest.station.getLatLng())
+				],
+			routeWhileDragging: true
+			})
+			.on("click", function () {event.originalEvent.stopPropagation();});
 		
-		findClosestStation(event.latlng);
+		var rB = routeControl.onAdd(mymap);
 		
 	});
 
