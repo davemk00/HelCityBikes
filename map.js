@@ -1,7 +1,8 @@
 var mymap;
 var allStationsGroup = new L.featureGroup();
 var latlng = [60.2480, 24.9280];
-var currentMarker;
+//var currentMarker;
+var routeControl;
 
 function initMap(){
 	// fetch the data first - this to avoid issues with rescaling/rezooming
