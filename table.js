@@ -9,12 +9,14 @@ function writeTable(coords)	{
 	
 	document.getElementById('stationText').innerHTML = ''; // clear table
 	
-	for (var i = 0; i < stationsInRange.length; i++) {
+	for (var i = 0; i < stationsInRangeArray.length; i++) {
 		
 		document.getElementById('stationText').innerHTML += 
-			"id = " + stationsInRange[i].extra.uid + ", text = " + stationsInRange[i].name + "  " + stationsInRange[i].free_bikes + "/" + (stationsInRange[i].empty_slots+stationsInRange[i].free_bikes) + "  " 
-			//+ ", coordinates = " + stationsInRange[i].latitude + ", " + stationsInRange[i].longitude 
-			+ "<br />";	
+			"id = " + stationsInRangeArray[i].extra.uid + ", text = " + 
+			stationsInRangeArray[i].name + "  " + 
+			stationsInRangeArray[i].free_bikes + "/" + (
+			stationsInRangeArray[i].empty_slots+
+			stationsInRangeArray[i].free_bikes) + "<br />";	
 	}
 }
 
