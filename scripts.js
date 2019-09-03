@@ -66,9 +66,7 @@ function findClosestStation(latLng) {
 	
 	// Method 2 - using array
 	nearest = {};
-	for (var i = 0; i < stationsInRangeArray.length; i++) {
-		console.log(stationsInRangeArray[i].free_bikes);
-		
+	for (var i = 0; i < stationsInRangeArray.length; i++) {		
 		if (stationsInRangeArray[i].free_bikes > 0) {
 			var stationLocation = new L.LatLng(stationsInRangeArray[i].latitude, stationsInRangeArray[i].longitude);
 			var distance = latLng.distanceTo(stationLocation);
@@ -101,12 +99,10 @@ function clearData()	{
 
 function printDebugData() {
 //	console.log(mymap.getCenter());
-	//console.log("zoom: " + mymap.getZoom());
-	// console.log(selStationsGroup);
-	console.log(currLocationMarker.getLatLng().lat);
-	console.log(currLocationMarker.getLatLng().lng);
-	console.log(nearest.station.getLatLng().lat);
-	console.log(nearest.station.getLatLng().lng);
+	console.log(stationsInRangeArray);
+	console.log(stationsInRangeLayerGroup);
+	console.log(stationData);
+	console.log(nearest);
 }
 
 
