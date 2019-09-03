@@ -12,10 +12,9 @@ function initMap(){
 	// Set as whole Helsinki view
 	mymap = L.map('mymap').setView(latlng, 10);
 	
-	// Set up action listeners - all here for reference 
-	mymap.on('moveend',		function (e) { refreshTable(); });
-
-
+	// Set up action listeners
+	mymap.on('moveend',	function (e) { refreshTable(); });
+	
 	mymap.on("click", function (event) {
 				
 		findClosestStation(event.latlng);
@@ -28,15 +27,31 @@ function initMap(){
 			profile:"mapbox/walking",
 			router: L.Routing.mapbox('pk.eyJ1IjoiZGsxZTE4IiwiYSI6ImNqejZseHN3djBmNnMzbGw4eGw1bWtxYzIifQ.PQzt_AuRZ79O2JT-MCbmvw', { profile: 'mapbox/walking' }),
 			waypoints: [
-				L.latLng(event.latlng),
-				L.latLng(nearest.station.getLatLng())
+				event.latlng,
+				nearest.latLng
 				],
-			routeWhileDragging: true
-			})
-			.on("click", function () {event.originalEvent.stopPropagation();});
+			routeWhileDragging: true,
+			createMarker: function(i, start, n) {
+				if (i == 0) {	
+					var marker = new L.CircleMarker(event.latlng, {
+						radius: 10,}
+					)		
+				} else if (i == n-1) {
+					var marker = new L.CircleMarker(nearest.latLng, {
+						radius: 10,
+						color:'red',
+					}).bindTooltip(
+						nearest.name + ' has ' + 
+						nearest.station.free_bikes + ' free bikes. </br>' + 
+						Math.round(nearest.distance) + ' metres away.',
+						{permanent: true, direction: 'top'}).openTooltip();
+				}
+				return marker
+			}
+		})
+		.on("click", function () {event.originalEvent.stopPropagation();});
 		
 		var rB = routeControl.onAdd(mymap);
-		
 	});
 
 
@@ -49,9 +64,8 @@ function initMap(){
 	}).addTo(mymap);
 	
 	
-	// Temporary actions:
+	// Temporary actions to simulate new location retrieved:
 	zoomToRandom();
-//	addLocationMarker();
 }
 
 function plotStationData() {
@@ -85,22 +99,24 @@ function plotStationData() {
 
 function getStationsInMapBounds(coords) {
 	// constructs a list of stations that appear in the map bounds
-	stationsInRange = new Array();
-	selStationsGroup  = new L.featureGroup();
+	stationsInRangeArray = new Array();
+	stationsInRangeLayerGroup  = new L.featureGroup();
 	
 	for (var i = 0; i< stationData.length; i++) {
 		if ((stationData[i].latitude < coords._northEast.lat && stationData[i].latitude > coords._southWest.lat) && (stationData[i].longitude < coords._northEast.lng && stationData[i].longitude > coords._southWest.lng)) 
 		{
 			// Append to array
-			stationsInRange.push(stationData[i]);
+			stationsInRangeArray.push(stationData[i]);
 			
 			// make feature
 			var markerLocation = new L.LatLng(stationData[i].latitude, stationData[i].longitude);
 			// add to layer
 			var inBoundsStations = new L.marker(markerLocation, { 
 				uid:stationData[i].extra.uid,
-				free_bikes: stationData[i].free_bikes})
-			.addTo(selStationsGroup);
+				free_bikes: stationData[i].free_bikes,
+				name: stationData[i].name
+			})
+			.addTo(stationsInRangeLayerGroup);
 		}
 	}
 }
@@ -116,12 +132,4 @@ function markerColour(numBikes) {
 		return 'Green';
 	}
 }
-
-
-
-
-
-
-
-
 
