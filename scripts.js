@@ -42,42 +42,59 @@ function findClosestStation(latLng) {
 	// Method 1 - using layers
 	nearest = {};
 	selStationsGroup.eachLayer(function(station) {
+	if (!latLng) {console.log("NEED TO DEFINE CENTRE")}
+	
+	// Find the closest station to the location of currLocationMarker
+	// Two methods:
+	
+	
+	/*
+	// Method 1 - using layers
+	nearest = {};
+	stationsInRangeLayerGroup.eachLayer(function(station) {
 		if (station.options.free_bikes > 0) {
 			var distance = latLng.distanceTo(station.getLatLng());
 			if (!nearest.station) {
 				nearest.station = station;
 				nearest.distance = distance;
+				nearest.name = station.options.name;
 				nearest.latLng = station.getLatLng();
 			} else if (distance < nearest.distance) {
 				nearest.station = station;
 				nearest.distance = distance;
 				nearest.latLng = station.getLatLng();
+				nearest.name = station.options.name;
 			}
 		}
 	});
-	
-	
-	/*
-	// Method 2 - using array
-	var nearest2 = {};
-	for (var i = 0; i < stationsInRange.length; i++) {
 		
-		var stationLocation = new L.LatLng(stationsInRange[i].latitude, stationsInRange[i].longitude);
-		var distance = latLng.distanceTo(stationLocation);
-		
-		if (!nearest2.station) {
-			nearest2.station = stationsInRange[i];
-			nearest2.distance = distance;
-		} else if (distance < nearest2.distance) {
-			nearest2.station = stationsInRange[i];
-			nearest2.distance = distance;
-		}
-	}
+	document.getElementById('closestStation').innerHTML = nearest.name + ' (ID: ' + nearest.station.options.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.options.free_bikes + ' free bikes';
 	*/
 	
-	document.getElementById('closestStation').innerHTML = 'The Closest Bike Station is station id ' + nearest.station.options.uid + ' at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.options.free_bikes + ' free bikes';
 	
-	//fetchLeafletRoutingMachineMapbox();
+	// Method 2 - using array
+	nearest = {};
+	for (var i = 0; i < stationsInRangeArray.length; i++) {
+		console.log(stationsInRangeArray[i].free_bikes);
+		
+		if (stationsInRangeArray[i].free_bikes > 0) {
+			var stationLocation = new L.LatLng(stationsInRangeArray[i].latitude, stationsInRangeArray[i].longitude);
+			var distance = latLng.distanceTo(stationLocation);
+			
+			if (!nearest.station) {
+				nearest.station = stationsInRangeArray[i];
+				nearest.distance = distance;
+				nearest.latLng = stationLocation;
+			} else if (distance < nearest.distance) {
+				nearest.station = stationsInRangeArray[i];
+				nearest.distance = distance;
+				nearest.latLng = stationLocation;
+			}
+		}
+	}
+	
+	document.getElementById('closestStation').innerHTML = nearest.station.name + ' (ID: ' + nearest.station.extra.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.free_bikes + ' free bikes';
+	
 }
 
 
@@ -107,7 +124,7 @@ function fetchLeafletRoutingMachineMapbox(latLng) {
 		router: L.Routing.mapbox('pk.eyJ1IjoiZGsxZTE4IiwiYSI6ImNqejZseHN3djBmNnMzbGw4eGw1bWtxYzIifQ.PQzt_AuRZ79O2JT-MCbmvw', { profile: 'mapbox/walking' }),
 		waypoints: [
 			L.latLng(latLng),
-			L.latLng(nearest.station.getLatLng())
+			L.latLng(nearest.latlng)
 			],
 		routeWhileDragging: true
 		})
