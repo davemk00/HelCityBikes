@@ -34,14 +34,6 @@ function addCurrLocationMarker(latlng) {
 	
 var nearest;
 function findClosestStation(latLng) {
-	if (!latLng) {latLng = currLocationMarker.getLatLng();}
-	
-	// Find the closest station to the location of currLocationMarker
-	// Two methods:
-	
-	// Method 1 - using layers
-	nearest = {};
-	selStationsGroup.eachLayer(function(station) {
 	if (!latLng) {console.log("NEED TO DEFINE CENTRE")}
 	
 	// Find the closest station to the location of currLocationMarker
