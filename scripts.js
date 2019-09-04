@@ -60,13 +60,14 @@ function findClosestStation(latLng) {
 		}
 	});
 		
-	document.getElementById('closestStation').innerHTML = nearest.name + ' (ID: ' + nearest.station.options.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.options.free_bikes + ' free bikes';
+	document.getElementById('closestStationText').innerHTML = nearest.name + ' (ID: ' + nearest.station.options.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.options.free_bikes + ' free bikes';
 	*/
 	
 	
 	// Method 2 - using array
 	nearest = {};
-	for (var i = 0; i < stationsInRangeArray.length; i++) {		
+	for (var i = 0; i < stationsInRangeArray.length; i++) {
+		
 		if (stationsInRangeArray[i].free_bikes > 0) {
 			var stationLocation = new L.LatLng(stationsInRangeArray[i].latitude, stationsInRangeArray[i].longitude);
 			var distance = latLng.distanceTo(stationLocation);
@@ -83,7 +84,7 @@ function findClosestStation(latLng) {
 		}
 	}
 	
-	document.getElementById('closestStation').innerHTML = nearest.station.name + ' (ID: ' + nearest.station.extra.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.free_bikes + ' free bikes';
+	document.getElementById('closestStationText').innerHTML = nearest.station.name + ' (ID: ' + nearest.station.extra.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.free_bikes + ' free bikes';
 	
 }
 
