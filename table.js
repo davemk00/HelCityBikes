@@ -7,7 +7,7 @@ function refreshTable() {
 function writeTable(coords)	{
 	getStationsInMapBounds(coords);
 	
-	document.getElementById('stationText').innerHTML = ''; // clear table
+	document.getElementById('stationsInRangeTable').innerHTML = ''; // clear table
 	
 	document.getElementById('stationsInRangeTable').innerHTML +=
 		"<table style='width:50%'>" + 
