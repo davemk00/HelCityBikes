@@ -41,7 +41,7 @@ function initMap(){
 						radius: 10,
 						color:'red',
 					}).bindTooltip(
-						nearest.name + ' has ' + 
+						nearest.station.name + ' has ' + 
 						nearest.station.free_bikes + ' free bikes. </br>' + 
 						Math.round(nearest.distance) + ' metres away.',
 						{permanent: true, direction: 'top'}).openTooltip();
