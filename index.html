@@ -22,7 +22,25 @@
  <SCRIPT language="JavaScript" type="text/JavaScript" src="table.js"></SCRIPT>
  <SCRIPT language="JavaScript" type="text/JavaScript" src="scripts.js"></SCRIPT>
  <SCRIPT language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
-   
+	
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>	
+	
 </head>
 
 
@@ -39,31 +57,27 @@
 	<button onclick = 'zoomToRandom()'>Zoom to random Location</button>
 	<!--button onclick = 'addLocationMarker()'>Add Location Marker</button-->	
 	<!--button onclick = 'findClosestStation()'>Find Closest Station</button-->
-	<!--button onclick = 'fetchLeafletRoutingMachineMapbox()'>fetchRouteMapbox</button-->
+	<button onclick = 'fetchLeafletRoutingMachineMapbox()'>fetchRouteMapbox</button-->
 	<!--button onclick = 'clearData()'>Clear Data</button-->
 	<button onclick = 'printDebugData()'>Print Debug Data to Console</button>
-	<div class = "closestStation" id="closestStation"></div>
+	<div class = "closestStationText" id="closestStationText" style="margin-top: 10px;">Click a position on the map to find the closest station with an available bike</div>
 	<br><br>
 	
 	
 	
-	<div style="width: 100%; overflow: hidden;">
-		<div id="mymap" style="width: 600px; height: 400px; float: left;"></div>
-		<div id="stationText" style="margin-left: 620px;"></div>
+	<div id="leftbox" style="float:left;">
+		<div id="mymap" style="width: 600px; height: 400px;"></div>
+		<p style="width: 550px;"> An alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/station <br>
+		I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...Zoom to a section to reduce the number of stations in the right hand table
+		</p>
+	</div>	
+	
+	<div id="rightbox" style="float:left; margin-left:10px;">
+		<table id="stationsInRangeTable" style="margin-left: 0px; width: auto;"></table>
 	</div>
 		
-	
-	<div class = "wrapper">
-		<div id = 'textWrap'></div>
-	</div>
-	
 	<SCRIPT type="text/JavaScript">
 	</script>
-
-
-	<p> I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...<br>
-	Zoom to a section to reduce the number of stations in the right hand table
-	</p>
 	
 		
 </body>
