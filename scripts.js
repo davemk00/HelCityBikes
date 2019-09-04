@@ -34,7 +34,7 @@ function addCurrLocationMarker(latlng) {
 	
 var nearest;
 function findClosestStation(latLng) {
-	if (!latLng) {console.log("NEED TO DEFINE CENTRE")}
+	if (!latLng) {latLng=mymap.getCenter()}
 	
 	// Find the closest station to the location of currLocationMarker
 	// Two methods:
@@ -107,6 +107,8 @@ function printDebugData() {
 
 
 function fetchLeafletRoutingMachineMapbox(latLng) {
+	if (!nearest) { findClosestStation(latLng) };
+	
 	var control = L.Routing.control({
 		profile:"mapbox/walking",
 		router: L.Routing.mapbox('pk.eyJ1IjoiZGsxZTE4IiwiYSI6ImNqejZseHN3djBmNnMzbGw4eGw1bWtxYzIifQ.PQzt_AuRZ79O2JT-MCbmvw', { profile: 'mapbox/walking' }),
