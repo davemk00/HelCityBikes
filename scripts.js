@@ -84,7 +84,7 @@ function findClosestStation(latLng) {
 		}
 	}
 	
-	document.getElementById('closestStationText').innerHTML = nearest.station.name + ' (ID: ' + nearest.station.extra.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.free_bikes + ' free bikes';
+	//document.getElementById('closestStationText').innerHTML = nearest.station.name + ' (ID: ' + nearest.station.extra.uid + ') is the closest bike station at ' + Math.round(nearest.distance) + 'm. It has ' + nearest.station.free_bikes + ' free bikes';
 	
 }
 
