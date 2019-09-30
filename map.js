@@ -40,11 +40,11 @@ function initMap(){
 					var marker = new L.CircleMarker(nearest.latLng, {
 						radius: 10,
 						color:'red',
-					}).bindTooltip(
+					});/*.bindTooltip(
 						nearest.station.name + ' has ' + 
 						nearest.station.free_bikes + ' free bikes. </br>' + 
 						Math.round(nearest.distance) + ' metres away.',
-						{permanent: true, direction: 'top'}).openTooltip();
+						{permanent: true, direction: 'top'}).openTooltip();*/
 				}
 				return marker
 			}
