@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8" />
+
+	<!-- bring in jQuery library -->
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
+
+	<!-- load custom script -->
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/data.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/sendData.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/table.js"></SCRIPT>
+
+	<!-- load custom styles -->
+
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/rightBox.css" />
+</head>
+
+
+<BODY style="overflow: hidden;" onload='fetchFaultData ( )' >
+
+	<!-- setting up tabs for feedback form -->
+	<!-- borrowed heavily from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs -->
+	<div class="tab">
+		<button class="tablinks" onclick="openTab(event, 'fault')">Report Fault</button>
+		<button class="tablinks" onclick="openTab(event, 'inputStationData')">Input Station Data</button>
+		<button class="tablinks" onclick="openTab(event, 'inputBikeData')">Input Bike Data</button>
+	</div>
+
+
+	<!-------------  FAULT TAB  ---------------------------------------->
+
+
+	<div id="fault" class="tabcontent active">
+		<h2>Report Fault</h2>
+
+		Bike ID: 		<input type="text" name="bikeID2" ID="bikeID2"><br>
+		Station ID:		<input type="text" name="stationID2" ID="stationID2"><br>
+
+		Issue:
+
+		<select ID="issuetext" class="dropdown" name="issuetext" >
+			<option value="flat tyre">	Flat tyre	</option>
+			<option value="gears"> 		Gears		</option>
+			<option value="light"> 		Light		</option>
+			<option value="seat"> 		Seat		</option>
+			<option value="structural">	Structural	</option>
+		</select>
+
+
+
+		<br>
+		Rating:
+		<select ID="severity" class="dropdown" name="severity">
+			<option value="mild">	Still operational	</option>
+			<option value="mid">	Difficult operation	</option>
+			<option value="major">	Not operational		</option>
+		</select>
+		
+		<br>
+		
+		Comments:</label>
+		<textarea class="form-control" type="textarea" name="comments" id="comment" placeholder="Your Comments" width="400" maxlength="6000" rows="2"></textarea>
+
+
+		<button onclick='sendFaultData()' title='Submit'>	Submit Fault		</button>
+		<br>
+		<button onclick='fetchFaultData()' title='Submit'>	Fetch Fault Data	</button>		
+		
+		<div id="faultData">
+			<table id="faultDataTable" class="table" style="display: block;"></table>
+		</div>
+		
+		
+		
+	</div>
+
+
+	<!-----------  BIKE DATA TAB ----------------------------------------->
+
+
+
+
+	<div id="inputBikeData" class="tabcontent">
+
+		<h2>Bike Data Entry</h2>
+		
+		Bike No:	<input type="text" name="bikeID1" ID="bikeID1"><br>
+		City: 		<select name="city" ID="city">
+		
+			<option value="Helsinki"> 	Helsinki	</option>
+			<option value="Espoo"> 		Espoo 		</option>
+			<option value="Vantaa">		Vantaa 		</option>
+			
+		</select><br><br>
+
+		<button onclick='sendBikeData()' title='Submit'>Submit Bike Data</button>
+	</div>
+
+
+	<!--------------  STATION DATA TAB --------------------------------------------->
+
+
+	<div id="inputStationData" class="tabcontent">
+		<h2>Station Data Form</h2>
+		Station No:		<input type="text"	name="stationID1" 	ID="stationID1"><br>
+		Station Name: 	<input type="text"	name="stationName" 	ID="stationName"><br>
+		Address: 		<input type="text"	name="address" 		ID="address"><br>
+		Slots: 			<input type="text"	name="slots" 		ID="slots"><br>
+		Bikes Present: 	<input type="text"	name="bikes" 		ID="bikes"><br>
+		Slots Free: 	<input type="text"	name="slotsAvailable" ID="slotsAvailable"><br>
+		Status: 		<select 			name="status" 		ID="status"><br><br>
+			<option value="Open"> 	Open 	</option>
+			<option value="closed"> Closed 	</option>
+		</select><br><br>
+
+		<button onclick='sendStationData()' title='Submit'>Submit Station Data</button>
+	</div>
+
+
+	<!------------------------------------------------------------------->
+
+
+	<script>
+	// for the changing right box content on use of the tabs
+	function openTab(evt, tabName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for(i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for(i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	</script>
+
+
+
+	<script>
+	$(document).ready(function() {
+		$('input[type=button]').click(function() {
+			alert($('input[name=experience]:checked').val());
+		});
+	});
+	</script>
+</body>

@@ -1,0 +1,97 @@
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.headerFooter {
+	background: #fcbc19;
+	text-align: center;
+}
+
+.limiter {
+	display: inline-flex;
+	max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: baseline;
+
+}
+
+#header {
+	height: 80px;
+}
+
+img {
+	height: 40px;
+}
+
+#title {
+	text-align: center;
+	display: inline;
+}
+
+h1 {
+	font-size: 60px;
+	margin: 0;
+	color: #000;
+}
+
+#leeds {
+	margin-right: 50px;
+}
+
+#soton {
+	margin-left: 50px;
+}
+
+
+#tempID {
+	/*! position: relative; */
+	height: 15px;
+}
+
+.main {
+	height: 600px;
+}
+
+
+#wrapper {
+	width: 100%;
+	height: 600px;
+}
+
+#map {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+}
+
+#footer {
+	height: 30px;
+}
+
+h3 {
+	padding-top: 5px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-size: 20px;
+	stext-align: center;
+}
+
+
+.leaflet-control-attribution {
+	left: 0;
+	position: fixed;
+	top: 683.5px;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+	color: white;
+}

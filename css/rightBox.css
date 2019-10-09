@@ -1,0 +1,187 @@
+/*  
+  Styles for the right box
+*/
+
+html {
+	width: 100%;
+}
+
+#rightbox {
+	position: absolute;
+	right: 0;
+	top: 99px;
+	z-index: 2;
+	background: rgba(0, 0, 0, .7);
+	width: 320px;
+	color: #FFF;
+}
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 0px;
+	background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 10px 6px;
+	transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+/* set the content to be none initially*/
+.tabcontent {
+	display: none;
+	padding: 4px 4px;
+	border-top: none;
+	color: #FFF;
+}
+
+#fault,
+#data {
+	display: block;
+	height: 100%;
+}
+
+
+/* Data section Style */
+
+.table {
+	border-collapse: collapse;
+	height: auto;
+	overflow: auto;
+	display: block;
+}
+
+#stationsInRangeTable {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 560px;
+}
+
+#faultDataTable {
+	overflow-y: scroll;
+	display: block;
+	position: relative;
+	height: 280px;
+	overflow-x: hidden;
+}
+
+#data {
+	height: 560px;
+	overflow-y: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+
+td,
+th {
+	font-size: 15px;
+	border-width: 1px;
+	border-color: rgba(247, 247, 247, 0.5);
+	border-style: solid;
+	padding: 2px;
+	/*! align: center; */
+}
+
+
+/*
+  Report Fault/Data section style
+*/
+#feedback>object:nth-child(1) {
+	height: 100%;
+	width: 100%;
+}
+
+#feedback {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 100%;
+}
+
+#stationID1,
+#stationID2,
+#city,
+#address,
+#slots,
+#slotsAvailable,
+#bikes,
+#status,
+#bikeID1,
+#bikeID2,
+#issuetext,
+#severity,
+#comment {
+	position: absolute;
+	left: 110px;
+}
+
+#refreshInt,
+#markerType,
+#autoZoom,
+#mapType {
+	position: absolute;
+	left: 130px;
+}
+
+#comment {
+	position: sticky;
+}
+
+#refreshInt {
+	position: inherit;
+	width: 50px;
+	text-align: right;
+	margin-left: 30px;
+}
+
+
+
+/*
+  Routing tab styles
+*/
+#originText {
+	margin-left: 10px;
+	width: 160px;
+}
+
+#originStation {
+	margin-left: 5px;
+	width: 180px;
+}
+
+#destText {
+	margin-left: 5px;
+	width: 150px;
+}
+
+#plotBikeButton {
+	width: 200px;
+	margin: 0 auto;
+}
+
+#routeText,
+#closestStationText {
+	display: block;
+}

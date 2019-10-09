@@ -1,83 +1,265 @@
 <!DOCTYPE html>
+
 <head>
-<meta charset="utf-8"/>
+	<meta charset="utf-8" />
 	<title>Helsinki Bikes</title>
-	
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   
- <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
- 
-	
-	
-	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-   
- <SCRIPT language="JavaScript" type="text/JavaScript" src="data.js"></SCRIPT>
- <SCRIPT language="JavaScript" type="text/JavaScript" src="map.js"></SCRIPT>
- <SCRIPT language="JavaScript" type="text/JavaScript" src="table.js"></SCRIPT>
- <SCRIPT language="JavaScript" type="text/JavaScript" src="scripts.js"></SCRIPT>
- <SCRIPT language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
-	
-<style>
-	table {
-		font-family: arial, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
-	}
 
-	td, th {
-		border: 1px solid #dddddd;
-		text-align: left;
-		padding: 8px;
-	}
+	<!-- Load external packages and styles -->
 
-	tr:nth-child(even) {
-		background-color: #dddddd;
-	}
-</style>	
-	
+	<!-- base javascript -->
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+	<!-- leaflet base packages -->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+
+
+	<!-- leaflet routing machine packages -->
+	<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+
+
+	<!-- leaflet encoded -->
+	<script src="extScripts/Polyline.encoded.js"></script>
+
+
+
+
+
+
+
+	<!-- Loading markercluster library 
+	Note that some changes were made to the base js so loading local version. Source: https://github.com/Leaflet/Leaflet.markercluster 
+	-->
+	<script src="extScripts/leaflet.markercluster-src.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+	<link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+
+	<!-- load local js files -->
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/data.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/markers.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/map.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/table.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/scripts.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/routing.js"></SCRIPT>
+	<SCRIPT language="JavaScript" type="text/JavaScript" src="js/sendData.js"></SCRIPT>
+
+
+
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/rightBox.css" />
+
 </head>
 
 
-<BODY onload = 'initMap()'> 
+<BODY onload='initMap()'>
 
 
-	<h1>Helsinki City Bikes</h1>
+	<div id='header' class='headerFooter' >
+		<div class='limiter'>
+				<img id="leeds" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/University_of_Leeds_Logo.svg/200px-University_of_Leeds_Logo.svg.png" alt="University of Leeds">
+				<span>  </span>
+				<a href='https://helcitybikes.hopto.org/' label='Helsinki City Bikes' style="text-decoration:none;">
+					<h1>Helsinki City Bikes </h1>
+				</a>
+				<span>  </span>
+				<img id="soton" src="img/University logo_black_transparent.png" alt="University of Southampton">
+		</div>
+
 	</div>
-	<div><p>An alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/stations<br>	
-	</p></div>
 
-	
-	<!--button onclick = 'refreshTable()'>Refresh Table</button-->
-	<button onclick = 'zoomToRandom()'>Zoom to random Location</button>
-	<!--button onclick = 'addLocationMarker()'>Add Location Marker</button-->	
-	<!--button onclick = 'findClosestStation()'>Find Closest Station</button-->
-	<button onclick = 'fetchLeafletRoutingMachineMapbox()'>fetchRouteMapbox</button-->
-	<!--button onclick = 'clearData()'>Clear Data</button-->
-	<button onclick = 'printDebugData()'>Print Debug Data to Console</button>
-	<div class = "closestStationText" id="closestStationText" style="margin-top: 10px;">Click a position on the map to find the closest station with an available bike</div>
-	<br><br>
-	
-	
-	
-	<div id="leftbox" style="float:left;">
-		<div id="mymap" style="width: 600px; height: 400px;"></div>
-		<p style="width: 550px;"> An alternative to https://kaupunkipyorat.hsl.fi/en/helsinki/station <br>
-		I added bike paths to this map, it is far too busy - nearly every road, footpath, forest path is a bike path...Zoom to a section to reduce the number of stations in the right hand table
-		</p>
-	</div>	
-	
-	<div id="rightbox" style="float:left; margin-left:10px;">
-		<table id="stationsInRangeTable" style="margin-left: 0px; width: auto;"></table>
+
+	<div id="tempID" class='limiter'>
+
 	</div>
-		
-	<SCRIPT type="text/JavaScript">
-	</script>
-	
-		
+
+
+
+	<div id="wrapper" class="main">
+		<div id="map" class="main"></div>
+
+
+		<div id="rightbox" class="main">
+
+			<!-- setting up tabs for the right legend box-->
+			<!-- borrowed heavily from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs -->
+			<div class="tab">
+				<!--button class="tablinks" onclick="openTab(event, 'intro')">Home</button-->
+				<button id="dataButt"  class="tablinks" onclick="openTab(event, 'data')">		Station Data	</button>
+				<button id="routeButt" class="tablinks" onclick="openTab(event, 'route')">		Route			</button>
+				<button id="faultButt" class="tablinks" onclick="openTab(event, 'feedback')">	Report Fault	</button>
+				<button id="aboutButt" class="tablinks" onclick="openTab(event, 'about')">		About			</button>
+			</div>
+
+
+
+			<!---------  DATA TAB ------------->
+
+
+			<div id="data" class="tabcontent">
+				<table id="stationsInRangeTable" class="table"></table>
+			</div>
+
+
+			<!---------  ROUTE TAB  ------------->
+
+
+			<div id="route" class="tabcontent">
+				<h2>Routing</h2>
+				Select origin point from the map or enter address:
+				<div>
+					<br>
+
+
+
+					Origin: <input type="text" onkeyup="autoCompleteAddress(this.value,'originSuggestion')" class="autocomplete" name="originText" ID="originText" placeholder="Start Address" value="Halsuantie 8">
+					<button onclick='setOrigFromAddress()'>Search</button>
+					<br>
+					<span type="text" name="originSuggestion" ID="originSuggestion"></span>
+
+
+
+
+					<br>
+					<!--button onclick='findClosestStation()'>find closest station</button-->
+
+
+					<br>
+					Pickup Station:<input type="text" name="originStation" ID="originStation">
+
+					<br>
+					<br>
+					Destination:<input type="text" onkeyup="autoCompleteAddress(this.value,'destSuggestion')" class="autocomplete" name="destText" ID="destText" placeholder="End Address" value="Vihdintie 4">
+					<button onclick='setDestFromAddress()'>Search</button>
+					<br>
+					<span type="text" name="destSuggestion" ID="destSuggestion"></span>
+
+
+
+					<br>
+					<br><button id="plotBikeButton" onclick='plotCycleRoute()'>Plot bike route</button>
+					
+					
+					<br>
+					<br>
+					<div id="routeText">
+						<div id="closestStationText" 	class="closestStationText"	></div> <br>
+						<br>
+						<div id="cycleRouteText" 		class="cycleRouteText"		></div> <br>
+
+					</div>
+					
+				</div>
+
+			</div>
+
+
+			<!--------  FAULT TAB  -------------->
+
+
+			<div id="feedback" class="tabcontent">
+				<!--?php include 'feedbackForm.php';?></include-->				
+				<object type="text/html" data="feedbackForm.html"></object>
+			</div>
+
+
+			<!--------  ABOUT TAB  -------------->
+
+
+			<div id="about" class="tabcontent">
+				<h2>About</h2>
+			
+			
+
+				<div id='attribs'>
+					Data: © <a href="https://kaupunkipyorat.hsl.fi/en">Helsinki Region Transport 2019</a> accessed through HSL provided <a href ="https://digitransit.fi">digitransit API</a><br>
+					Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a><br>
+					Map imagery: © <a href="http://mapbox.com">Mapbox</a> and <a href="http://www.thunderforest.com">Thunderforest</a>
+				</div>
+				
+				
+				
+				<br>
+				<br>
+				<br>
+				
+				
+				
+				<h2>Settings</h2>
+				
+				Data refresh: <input type="text" name="refreshInt" ID="refreshInt" value='30' onkeyup="setRefreshInt(this.value)" placeholder=> Seconds
+				<br>
+				
+				Map Background 
+				
+				<select class="dropdown" name="mapType" ID="mapType" onchange="loadMap()">
+					<option value="mapbox.streets"> Mapbox Streets </option>
+					<option value="mapbox.outdoors"> Mapbox Outdoor </option>
+					<option value="tf.cycle"> Thunderforest Cycle </option>
+					<option value="tf.landscape"> Thunderforest Landscape </option>
+					<option value="tf.outdoors"> Thunderforest Outdoors </option>
+				</select>
+				
+				<br>
+						
+				Icon type: 
+				
+				<select class="dropdown" name="markerType" ID="markerType" onchange="plotStationData()">
+					<option value="simple"> Simple - 3 colour </option>
+					<option value="clustered"> Clustered </option>
+					<option value="pieIcon"> Doughnut Icon </option>
+				</select>
+				
+				<br>
+				
+				Auto Zoom: <input type="checkbox" id="autoZoom"><br>
+				
+				<br>
+				
+				
+				
+				
+				<!--- DEBUG BUTTONS -->
+				<!--h2>Debug</h2>
+				<button onclick='writeStationTable()'>Refresh Table</button>
+				<button onclick='zoomToRandom()'>Zoom to random Location</button>
+				<button onclick='addLocationMarker()'>Add Location Marker to Center</button>
+				<button onclick='findClosestStation()'>Find Closest Station</button>
+				<button onclick='printDebugData()'>Console Data</button>
+				<button onclick='clearData()'>Clear Data</button-->
+
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="tempID" class='limiter'>
+	</div>
+
+
+	<div class='headerFooter' id='footer'>
+		<div class='limiter'>
+
+			<h3>GEOG5871M - Final Assessment - ID: 201185558</h3>
+			<!--a href='https://helcitybikes.hopto.org/' label='Helsinki City Bikes'>
+			</a-->
+
+		</div>
+	</div>
+
+
+
+
+
+	<SCRIPT type="text/JavaScript"> </script>
+
 </body>
